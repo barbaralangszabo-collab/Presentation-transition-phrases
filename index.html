@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English-Hungarian Flashcards</title>
+    <title>English-English Flashcards</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Card Flip Styles */
         .flashcard-container {
-            perspective: 1000px; /* 3D effect */
+            perspective: 1000px;
             height: 300px;
         }
 
@@ -36,7 +36,8 @@
             padding: 1.5rem;
             text-align: center;
             border-radius: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),
+                        0 4px 6px -2px rgba(0,0,0,0.05);
         }
 
         .flashcard-front {
@@ -58,32 +59,38 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 flex flex-col min-h-screen p-4 sm:p-8 font-sans">
+
+<body class="bg-[#F2EFE9] flex flex-col min-h-screen p-4 sm:p-8 font-sans">
     <div class="max-w-3xl w-full mx-auto">
 
         <!-- Static Presentation Image Section -->
         <div class="mb-8 p-4 bg-gray-100 rounded-xl shadow-inner">
-            <div id="imageContainer" class="flex justify-center items-center h-48 bg-gray-200 rounded-lg overflow-hidden border border-gray-300">
-                <img id="presentationImage" 
-                     src="https://cdn.pixabay.com/photo/2016/11/21/12/57/presentation-1842328_1280.jpg"
+            <div id="imageContainer"
+                 class="flex justify-center items-center h-48 bg-gray-200 rounded-lg overflow-hidden border border-gray-300">
+
+                <!-- MOVED IMAGE UP SLIGHTLY MORE (center_45%) -->
+                <img id="presentationImage"
+                     src="colloquial2.png"
                      alt="Presentation image"
-                     class="w-full h-full object-cover">
+                     class="w-full h-full object-cover object-[center_45%]">
             </div>
         </div>
 
-        <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 text-center mb-8">
-            Presentation: Transition Phrases Flashcards- English-Hungarian
+        <h1 class="text-3xl sm:text-4xl font-bold text-blue-900 text-center mb-8">
+            Presentation: Transition Phrases Flashcards (English → English)
         </h1>
 
-        <div id="flashcardContainer" class="flashcard-container cursor-pointer mx-auto w-full max-w-lg mb-8" onclick="flipCard()">
+        <div id="flashcardContainer"
+             class="flashcard-container cursor-pointer mx-auto w-full max-w-lg mb-8"
+             onclick="flipCard()">
             <div id="flashcardInner" class="flashcard-inner">
 
                 <div class="flashcard-face flashcard-front">
-                    <span id="frontText" class="main-text">Kártyák betöltése...</span>
+                    <span id="frontText" class="main-text">Loading cards...</span>
                 </div>
 
                 <div class="flashcard-face flashcard-back">
-                    <span id="backText" class="main-text">Kártyák betöltése...</span>
+                    <span id="backText" class="main-text">Loading cards...</span>
                 </div>
 
             </div>
@@ -93,17 +100,26 @@
             <div id="status" class="text-lg font-semibold text-gray-700 mb-4 sm:mb-0"></div>
 
             <div class="flex space-x-4">
-                <button id="prevBtn" onclick="prevCard()" class="px-6 py-3 bg-gray-300 text-gray-800 font-bold rounded-xl shadow-md hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                <button id="prevBtn"
+                        onclick="prevCard()"
+                        class="px-6 py-3 bg-gray-300 text-gray-800 font-bold rounded-xl shadow-md
+                               hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled>
                     Previous
                 </button>
-                <button id="nextBtn" onclick="nextCard()" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg hover:bg-indigo-700 transition-colors" disabled>
+
+                <button id="nextBtn"
+                        onclick="nextCard()"
+                        class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg
+                               hover:bg-indigo-700 transition-colors"
+                        disabled>
                     Next Card →
                 </button>
             </div>
         </div>
 
         <div class="text-center mt-10 text-gray-500 text-sm">
-            <p>*Click the card to flip it and reveal the translation.*</p>
+            <p>*Click the card to flip it and see the simple English equivalent.*</p>
         </div>
     </div>
 
@@ -116,19 +132,19 @@
         const frontText = document.getElementById('frontText');
         const backText = document.getElementById('backText');
         const statusEl = document.getElementById('status');
-        const prevButton = document.getElementById('prevBtn');
+        const prevButton = document.getElementById('prevBtn']);
         const nextButton = document.getElementById('nextBtn');
 
         const initialCardData = [
-            { en: "To bridge this with our next topic...", hu: "Összekötve a következő témákkal" },
-            { en: "In the same vein, let’s look at...", hu: "Ugyanebben a szellemben, nézzük meg..." },
-            { en: "Drawing a parallel to our previous point...", hu: "A korábbi pontunkhoz hasonlóan" },
-            { en: "Expanding the scope of our discussion, let’s move to...", hu: "Kinyitva a jelen témánkat, térjünk rá a..." },
-            { en: "Having established that, we can now consider...", hu: "Miután ezt megállapítottuk, most megvizsgálhatjuk..." },
-            { en: "Correlating this with our next point...", hu: "A következő témánkkal összekötve..." },
-            { en: "Let’s transition now to a related idea...", hu: "Térjünk át most egy kapcsolódó témára" },
-            { en: "With this in mind, let’s proceed to...", hu: "Ezt szem előtt tartva, folytassuk a..." },
-            { en: "Steering our discussion in a new direction, let’s delve into...", hu: "Új irányba terelve a beszélgetésünket, vizsgáljuk meg a..." }
+            { en: "To bridge this with our next topic...", hu: "To connect this to the next topic..." },
+            { en: "In the same vein, let's look at...", hu: "Similarly, let's look at..." },
+            { en: "Drawing a parallel to our previous point...", hu: "Comparing this to the previous point..." },
+            { en: "Expanding the scope of our discussion, let's move to...", hu: "Broadening our discussion, let's move on to..." },
+            { en: "Having established that, we can now consider...", hu: "Now that we know this, we can look at..." },
+            { en: "Correlating this with our next point...", hu: "Connecting this with the next point..." },
+            { en: "Let's transition now to a related idea...", hu: "Let's move to a related idea..." },
+            { en: "With this in mind, let's proceed to...", hu: "Keeping this in mind, let's continue to..." },
+            { en: "Steering our discussion in a new direction, let's delve into...", hu: "Changing direction, let's explore..." }
         ];
 
         function initializeApp() {
@@ -138,50 +154,29 @@
         }
 
         window.flipCard = function() {
-            if (cards.length === 0) return;
             isFlipped = !isFlipped;
             container.classList.toggle('flipped', isFlipped);
         }
 
         function updateCardContent() {
-            if (cards.length === 0) {
-                frontText.textContent = "Nincs kártya a csomagban.";
-                backText.textContent = "Nincs kártya a csomagban.";
-                statusEl.textContent = "Kártya 0 / 0";
-                prevButton.disabled = true;
-                nextButton.disabled = true;
-                return;
-            }
-
             const card = cards[currentCardIndex];
             frontText.textContent = card.en;
             backText.textContent = card.hu;
-            statusEl.textContent = `Kártya ${currentCardIndex + 1} / ${cards.length}`;
-
-            prevButton.disabled = false;
-            nextButton.disabled = false;
+            statusEl.textContent = `Card ${currentCardIndex + 1} / ${cards.length}`;
         }
 
         function changeCard(direction) {
-            if (cards.length === 0) return;
-
             container.classList.remove('flipped');
             isFlipped = false;
-
             currentCardIndex = (currentCardIndex + direction + cards.length) % cards.length;
-
             setTimeout(updateCardContent, 100);
         }
 
-        window.nextCard = function() {
-            changeCard(1);
-        }
-
-        window.prevCard = function() {
-            changeCard(-1);
-        }
+        window.nextCard = function() { changeCard(1); }
+        window.prevCard = function() { changeCard(-1); }
 
         initializeApp();
     </script>
+
 </body>
 </html>
